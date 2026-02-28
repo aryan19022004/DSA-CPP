@@ -1,0 +1,138 @@
+#include <iostream>
+#include <vector>
+#include <set>
+using namespace std;
+
+/*
+============================================================
+BRUTE / BETTER APPROACH (Using Set)
+------------------------------------------------------------
+Logic:
+1. Take a set (it automatically stores unique elements).
+2. Insert all elements of first vector.
+3. Insert all elements of second vector.
+4. Set automatically removes duplicates and keeps sorted order.
+
+Why this is not true brute?
+Because set uses Balanced BST (Red-Black Tree).
+
+Time Complexity:
+Each insertion takes O(log n)
+Total = O((n + m) log (n + m))
+
+Space Complexity:
+O(n + m)  (for storing union elements)
+============================================================
+*/
+
+vector<int> unionUsingSet(vector<int> &v1, vector<int> &v2) {
+
+    set<int> st;
+
+    for(auto it : v1)
+        st.insert(it);
+
+    for(auto it : v2)
+        st.insert(it);
+
+    vector<int> result;
+
+    for(auto it : st)
+        result.push_back(it);
+
+    return result;
+}
+
+
+/*
+============================================================
+OPTIMAL APPROACH (Two Pointer Technique)
+------------------------------------------------------------
+Condition: Arrays must be sorted.
+
+Logic:
+1. Use two pointers i & j.
+2. Compare elements:
+      - If equal → push once and move both.
+      - If smaller → push smaller and move that pointer.
+3. Skip duplicates inside each array.
+4. Traverse remaining elements.
+
+Time Complexity:
+O(n + m)
+
+Space Complexity:
+O(n + m)
+============================================================
+*/
+
+vector<int> unionOptimal(vector<int> &v1, vector<int> &v2) {
+
+    vector<int> result;
+
+    int i = 0, j = 0;
+
+    while(i < v1.size() && j < v2.size()) {
+
+        if(v1[i] == v2[j]) {
+
+            if(result.empty() || result.back() != v1[i])
+                result.push_back(v1[i]);
+
+            i++;
+            j++;
+        }
+
+        else if(v1[i] < v2[j]) {
+
+            if(result.empty() || result.back() != v1[i])
+                result.push_back(v1[i]);
+
+            i++;
+        }
+
+        else {
+
+            if(result.empty() || result.back() != v2[j])
+                result.push_back(v2[j]);
+
+            j++;
+        }
+    }
+
+    while(i < v1.size()) {
+        if(result.empty() || result.back() != v1[i])
+            result.push_back(v1[i]);
+        i++;
+    }
+
+    while(j < v2.size()) {
+        if(result.empty() || result.back() != v2[j])
+            result.push_back(v2[j]);
+        j++;
+    }
+
+    return result;
+}
+
+
+
+int main() {
+
+    vector<int> v1 = {1,1,2,3,3,4,5,5,6};
+    vector<int> v2 = {2,3,4,5,5,6};
+
+    cout << "Union Using Set: ";
+    vector<int> setAns = unionUsingSet(v1, v2);
+    for(auto it : setAns)
+        cout << it << " ";
+
+    cout << "\n";
+
+    cout << "Optimal Union (Two Pointer): ";
+    vector<int> optimalAns = unionOptimal(v1, v2);
+    for(auto it : optimalAns)
+        cout << it << " ";
+
+    return 0;
+}
