@@ -5,6 +5,45 @@ using namespace std;
 
 /*
 ============================================================
+BRUTE FORCE APPROACH
+------------------------------------------------------------
+Logic:
+1. For every element:
+      - Count how many times it appears in entire array.
+2. If count == 1 → print that element.
+
+Time Complexity:
+- Outer loop: n
+- Inner loop: n
+- Overall: O(n²)
+
+Space Complexity:
+- O(1) (no extra space)
+============================================================
+*/
+
+int findUsingBrute(vector<int> &v) {
+
+    for(int i = 0; i < v.size(); i++) {
+
+        int count = 0;
+
+        for(int j = 0; j < v.size(); j++) {
+            if(v[i] == v[j]) {
+                count++;
+            }
+        }
+
+        if(count == 1) {
+            return v[i];
+        }
+    }
+
+    return -1;
+}
+
+/*
+============================================================
 APPROACH 1: Using Map (Hashing)
 ------------------------------------------------------------
 Logic:
