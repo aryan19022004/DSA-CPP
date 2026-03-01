@@ -1,3 +1,82 @@
+// ---------------------------------------------------------
+// Brute Force Method to Find Missing Number
+// ---------------------------------------------------------
+// Idea:
+// For every number from 1 to n,
+// check whether it exists in the array.
+// If not found, that is the missing number.
+// ---------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to check if a number is present in array
+bool isPresent(vector<int>& v, int target) {
+    
+    // Traverse entire array
+    for(int i = 0; i < v.size(); i++) {
+        if(v[i] == target) {
+            return true;   // Found
+        }
+    }
+    
+    return false;  // Not Found
+}
+
+int main() {
+
+    vector<int> v = {1,2,3,4,6};
+    int n = 6;
+
+    /*
+    ---------------------------------------------------------
+    LOGIC:
+    ---------------------------------------------------------
+    1. Run a loop from 1 to n.
+    2. For each number, check if it exists in array.
+    3. If not found → that number is missing.
+    ---------------------------------------------------------
+    */
+
+    for(int i = 1; i <= n; i++) {
+        if(!isPresent(v, i)) {
+            cout << "Missing number is " << i;
+            break;
+        }
+    }
+
+    return 0;
+}
+
+/*
+---------------------------------------------------------
+TIME COMPLEXITY:
+---------------------------------------------------------
+Outer loop runs n times.
+For each number, we search entire array (n times).
+
+Total Time Complexity = O(n²)
+
+---------------------------------------------------------
+SPACE COMPLEXITY:
+---------------------------------------------------------
+O(1)
+No extra data structure is used.
+
+---------------------------------------------------------
+NOTE:
+---------------------------------------------------------
+This is a brute force approach.
+It is simple but inefficient for large n.
+Better approaches:
+- Sum formula method → O(n)
+- XOR method → O(n)
+---------------------------------------------------------
+*/
+
+
+
 // Program to find the missing number from 1 to n
 // Example: {1,2,3,4,6} and n = 6 → Missing number = 5
 
