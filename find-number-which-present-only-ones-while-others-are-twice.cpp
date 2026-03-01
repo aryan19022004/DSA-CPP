@@ -112,6 +112,37 @@ int findUsingXOR(vector<int> &v) {
     return xor1;
 }
 
+
+/*
+============================================================
+SORTED ARRAY APPROACH (Linear Scan)
+------------------------------------------------------------
+Logic:
+1. Traverse array with step of 2.
+2. Since sorted:
+      - If v[i] != v[i+1] → v[i] is unique.
+      - Otherwise skip both.
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+============================================================
+*/
+
+int findUniqueSorted(vector<int> &v) {
+
+    int n = v.size();
+
+    for(int i = 0; i < n-1; i += 2) {
+
+        if(v[i] != v[i+1]) {
+            return v[i];
+        }
+    }
+
+    // If unique element is last element
+    return v[n-1];
+}
+
 int main() {
 
     vector<int> v = {1,1,2,2,3,3,4,4,5,6,6};
