@@ -27,3 +27,30 @@ int main() {
   
     return 0;
 }
+
+#include <unordered_map>
+
+int longestSubarrayOptimal(vector<int>& v, int k) {
+    unordered_map<int, int> mp;  // prefixSum -> first index
+    int sum = 0;
+    int maxLen = 0;
+
+    for(int i = 0; i < v.size(); i++){
+        sum += v[i];
+
+        if(sum == k){
+            maxLen = i + 1;
+        }
+
+        if(mp.find(sum - k) != mp.end()){
+            maxLen = max(maxLen, i - mp[sum - k]);
+        }
+
+        // store only first occurrence
+        if(mp.find(sum) == mp.end()){
+            mp[sum] = i;
+        }
+    }
+
+    return maxLen;
+}
