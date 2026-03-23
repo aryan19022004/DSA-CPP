@@ -3,7 +3,7 @@ using namespace std;
 
 int main(){
 int num= 30;
-string result = "";
+string result = "";  // it will store the required tittle
   while(num>0){
     num--;
     int rem = num%26;
